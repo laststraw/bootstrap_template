@@ -20,19 +20,14 @@
 			
 			.axis path,
 			.axis line {
-			fill: none;
-			stroke: #000;
-			shape-rendering: crispEdges;
-			}
-			
-			.bar {
-			fill: steelblue;
+			  fill: none;
+			  stroke: #000;
+			  shape-rendering: crispEdges;
 			}
 
-			.x.axis path {
-			display: none;
-			}	
-			
+			.dot {
+			  stroke: #000;
+			}					
 		</style>
         
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -60,7 +55,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="index.html">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
             <li class="dropdown">
@@ -81,9 +76,9 @@
                <!--<input type="text" placeholder="Email" class="form-control"> -->
             </div>
             <div class="form-group">
-           <!-- <input type="password" placeholder="Password" class="form-control">--> 
+            <!--<input type="password" placeholder="Password" class="form-control"> -->
             </div>
-     <!--        <button type="submit" class="btn btn-success">Sign in</button>-->
+             <!--<button type="submit" class="btn btn-success">Sign in</button>-->
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -92,35 +87,20 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Highlight!!!</h1>
+        <h1>Headline 1</h1>
         <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
         <div id="divd3_1"></div>
 					
-		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+		<p><a href="table_scatter.xlsx" class="btn btn-primary btn-lg">Data Source &raquo;</a></p>
       </div>
     </div>
 
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-4">
-          <h2>Headline 1</h2>       
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <img src="scatter.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="scatter.html">View details &raquo;</a></p>		  
-        </div>
-        <div class="col-lg-4">
-          <h2>Headline 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <img src="pie.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="pie.html">View details &raquo;</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Headline 3</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <img src="line.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="line.html">View details &raquo;</a></p>
-        </div>
+        
+        
+        
       </div>
 
       <hr>
@@ -136,80 +116,76 @@
 		<script src="js/vendor/backbone-min.js"></script> 
 		
 		<script>
-		var margin = {top: 20, right: 20, bottom: 30, left: 60},
+
+		var margin = {top: 20, right: 20, bottom: 30, left: 40},
 			width = 960 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
-		var x0 = d3.scale.ordinal()
-			.rangeRoundBands([0, width], .1);
-
-		var x1 = d3.scale.ordinal();
+		var x = d3.scale.linear()
+			.range([0, width]);
 
 		var y = d3.scale.linear()
 			.range([height, 0]);
 
-		var color = d3.scale.ordinal()
-			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+		var color = d3.scale.category10();
 
 		var xAxis = d3.svg.axis()
-			.scale(x0)
+			.scale(x)
 			.orient("bottom");
 
 		var yAxis = d3.svg.axis()
 			.scale(y)
-			.orient("left")
-			.tickFormat(d3.format(".2s"));
+			.orient("left");
 
 		var svg = d3.select("#divd3_1").append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
-		    .append("g")
+		  .append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		d3.csv("bar.csv", function(error, data) {
-		  var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
-
+		d3.tsv("scatter.tsv", function(error, data) {
 		  data.forEach(function(d) {
-			d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+			d.sepalLength = +d.sepalLength;
+			d.sepalWidth = +d.sepalWidth;
 		  });
 
-		  x0.domain(data.map(function(d) { return d.State; }));
-		  x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-		  y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+		  x.domain(d3.extent(data, function(d) { return d.sepalWidth; })).nice();
+		  y.domain(d3.extent(data, function(d) { return d.sepalLength; })).nice();
 
 		  svg.append("g")
 			  .attr("class", "x axis")
 			  .attr("transform", "translate(0," + height + ")")
-			  .call(xAxis);
+			  .call(xAxis)
+			.append("text")
+			  .attr("class", "label")
+			  .attr("x", width)
+			  .attr("y", -6)
+			  .style("text-anchor", "end")
+			  .text("Sepal Width (cm)");
 
 		  svg.append("g")
 			  .attr("class", "y axis")
 			  .call(yAxis)
-			  .append("text")
+			.append("text")
+			  .attr("class", "label")
 			  .attr("transform", "rotate(-90)")
 			  .attr("y", 6)
 			  .attr("dy", ".71em")
 			  .style("text-anchor", "end")
-			  .text("Population");
+			  .text("Sepal Length (cm)")
 
-		  var state = svg.selectAll(".state")
+		  svg.selectAll(".dot")
 			  .data(data)
-			  .enter().append("g")
-			  .attr("class", "g")
-			  .attr("transform", function(d) { return "translate(" + x0(d.State) + ",0)"; });
-
-		  state.selectAll("rect")
-			  .data(function(d) { return d.ages; })
-			  .enter().append("rect")
-			  .attr("width", x1.rangeBand())
-			  .attr("x", function(d) { return x1(d.name); })
-			  .attr("y", function(d) { return y(d.value); })
-			  .attr("height", function(d) { return height - y(d.value); })
-			  .style("fill", function(d) { return color(d.name); });
+			.enter().append("circle")
+			  .attr("class", "dot")
+			  .attr("r", 3.5)
+			  .attr("cx", function(d) { return x(d.sepalWidth); })
+			  .attr("cy", function(d) { return y(d.sepalLength); })
+			  .style("fill", function(d) { return color(d.species); });
 
 		  var legend = svg.selectAll(".legend")
-			  .data(ageNames.slice().reverse())
-			  .enter().append("g")
+			  .data(color.domain())
+			.enter().append("g")
 			  .attr("class", "legend")
 			  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
@@ -228,8 +204,7 @@
 
 		});
 
-		</script> 	
-		
+		</script>		
 				
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
