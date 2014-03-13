@@ -11,36 +11,13 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <style>
-            body {
-                padding-top: 50px;
-                padding-bottom: 20px;
-				font: 15px sans-serif;
-            }
-			
-			.axis path,
-			.axis line {
-			fill: none;
-			stroke: #000;
-			shape-rendering: crispEdges;
-			}
-			
-			.bar {
-			fill: steelblue;
-			}
 
-			.x.axis path {
-			display: none;
-			}	
-			
-		</style>
-        
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script src="js/vendor/underscore-min.js"></script>
-        
+        <script src="js/vendor/bootstrap-min.js"></script>
 		<script src="js/vendor/d3.js"></script>
     </head>
 	
@@ -56,17 +33,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">D3 Demo Project</a>
+          <a class="navbar-brand" href="#">Stats Brief</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+           <!--    <li class="active"><a href="#">Main</a></li>
+            <li><a href="#about">Get the data for this brief</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other otions <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
+                <li><a href="#">Feedback</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
@@ -74,7 +50,7 @@
                 <li><a href="#">Separated link</a></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li>-->
           </ul>
           <form class="navbar-form navbar-right">
             <div class="form-group">
@@ -90,11 +66,72 @@
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="row-fluid">
+    <div class="col-md-2">
+     <div id="scrolltarget" class="well well-sm sidebar-nav sidebar-nav-fixed">
+         <ul class="nav nav-list">
+           <li class="active"><a id="link1" href="#" class="large-link active">Overview</a></li>                    
+           <li><a id="link2" href="#s2" class="large-link">Discrepancies</a></li>  
+           <li><a id="link3" href="#s3" class="large-link">Doesn't this rock?</a></li>                              
+         </ul>
+       </div><!--/.well -->
+    </div>
+    <div class="col-md-10">
+    <div id="s1" class="jumbotron">
       <div class="container">
-        <h1>Highlight!!!</h1>
+        <h1>GDP Growth</h1>
+        <h2>Asia and the Pacific</h2>
+
         <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
         <div id="divd3_1"></div>
+					
+		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+      </div>
+    </div>
+
+
+     <div id="s2" class="jumbotron">
+      <div class="container">
+        <h1>GDP Growth</h1>
+        <h2>Asia and the Pacific</h2>
+
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <div id="div1"></div>
+					
+		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-lg-4">
+          <h2>Headline 1</h2>       
+		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <img src="scatter.png" width="230" height="120" alt=""/>
+<p><a class="btn btn-default" href="scatter.html">View details &raquo;</a></p>		  
+        </div>
+        <div class="col-lg-4">
+          <h2>Headline 2</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <img src="pie.png" width="230" height="120" alt=""/>
+<p><a class="btn btn-default" href="pie.html">View details &raquo;</a></p>
+       </div>
+        <div class="col-lg-4">
+          <h2>Headline 3</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <img src="line.png" width="230" height="120" alt=""/>
+<p><a class="btn btn-default" href="line.html">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <div id="s3" class="jumbotron">
+      <div class="container">
+        <h1>GDP Growth</h1>
+        <h2>Asia and the Pacific</h2>
+
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <div id="div3"></div>
 					
 		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
       </div>
@@ -128,7 +165,11 @@
       <footer>
         <p>&copy; Company 2013</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    </div> <!-- /container -->       
+    </div> <!-- /span10 --> 
+    </div> <!-- /row -->
+
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
@@ -136,109 +177,22 @@
 		<script src="js/vendor/backbone-min.js"></script> 
 		
 		<script>
-		var margin = {top: 20, right: 20, bottom: 30, left: 60},
-			width = 960 - margin.left - margin.right,
-			height = 500 - margin.top - margin.bottom;
 
-		var x0 = d3.scale.ordinal()
-			.rangeRoundBands([0, width], .1);
 
-		var x1 = d3.scale.ordinal();
+		</script> 
+        
+        
+        <script type="text/javascript">
 
-		var y = d3.scale.linear()
-			.range([height, 0]);
 
-		var color = d3.scale.ordinal()
-			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-		var xAxis = d3.svg.axis()
-			.scale(x0)
-			.orient("bottom");
-
-		var yAxis = d3.svg.axis()
-			.scale(y)
-			.orient("left")
-			.tickFormat(d3.format(".2s"));
-
-		var svg = d3.select("#divd3_1").append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
-		    .append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		d3.csv("bar.csv", function(error, data) {
-		  var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
-
-		  data.forEach(function(d) {
-			d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
-		  });
-
-		  x0.domain(data.map(function(d) { return d.State; }));
-		  x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-		  y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
-
-		  svg.append("g")
-			  .attr("class", "x axis")
-			  .attr("transform", "translate(0," + height + ")")
-			  .call(xAxis);
-
-		  svg.append("g")
-			  .attr("class", "y axis")
-			  .call(yAxis)
-			  .append("text")
-			  .attr("transform", "rotate(-90)")
-			  .attr("y", 6)
-			  .attr("dy", ".71em")
-			  .style("text-anchor", "end")
-			  .text("Population");
-
-		  var state = svg.selectAll(".state")
-			  .data(data)
-			  .enter().append("g")
-			  .attr("class", "g")
-			  .attr("transform", function(d) { return "translate(" + x0(d.State) + ",0)"; });
-
-		  state.selectAll("rect")
-			  .data(function(d) { return d.ages; })
-			  .enter().append("rect")
-			  .attr("width", x1.rangeBand())
-			  .attr("x", function(d) { return x1(d.name); })
-			  .attr("y", function(d) { return y(d.value); })
-			  .attr("height", function(d) { return height - y(d.value); })
-			  .style("fill", function(d) { return color(d.name); });
-
-		  var legend = svg.selectAll(".legend")
-			  .data(ageNames.slice().reverse())
-			  .enter().append("g")
-			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-		  legend.append("rect")
-			  .attr("x", width - 18)
-			  .attr("width", 18)
-			  .attr("height", 18)
-			  .style("fill", color);
-
-		  legend.append("text")
-			  .attr("x", width - 24)
-			  .attr("y", 9)
-			  .attr("dy", ".35em")
-			  .style("text-anchor", "end")
-			  .text(function(d) { return d; });
-
-		});
-
-		</script> 	
+   </script>	
 		
 				
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
         <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src='//www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
+
         </script>
     </body>
 </html>
