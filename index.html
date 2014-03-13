@@ -12,7 +12,7 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+       <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -21,7 +21,7 @@
 		<script src="js/vendor/d3.js"></script>
     </head>
 	
-    <body>
+    <body data-spy="scroll" data-target="#scrolltarget">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -68,11 +68,11 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="row-fluid">
     <div class="col-md-2">
-     <div id="scrolltarget" class="well well-sm sidebar-nav sidebar-nav-fixed">
-         <ul class="nav nav-list">
-           <li class="active"><a id="link1" href="#" class="large-link active">Overview</a></li>                    
-           <li><a id="link2" href="#s2" class="large-link">Discrepancies</a></li>  
-           <li><a id="link3" href="#s3" class="large-link">Doesn't this rock?</a></li>                              
+     <div id="scrolltarget" class="well well-sm sidebar-nav sidebar-nav-fixed" style="padding:0px";>
+         <ul class="nav nav-tabs">
+           <li class="fillup active"><a id="link1" href="#" class="large-link active">Overview</a></li>                    
+           <li class="fillup"><a id="link2" href="#s2" class="large-link">Discrepancies</a></li>  
+           <li class="fillup"><a id="link3" href="#s3" class="large-link">Doesn't this rock?</a></li>                              
          </ul>
        </div><!--/.well -->
     </div>
@@ -82,7 +82,7 @@
         <h1>GDP Growth</h1>
         <h2>Asia and the Pacific</h2>
 
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p>This is a template for a simple website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
         <div id="divd3_1"></div>
 					
 		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -102,7 +102,6 @@
       </div>
     </div>
 
-    <div class="container">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-lg-4">
@@ -166,7 +165,6 @@
         <p>&copy; Company 2013</p>
       </footer>
     </div> <!-- /container -->       
-    </div> <!-- /span10 --> 
     </div> <!-- /row -->
 
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

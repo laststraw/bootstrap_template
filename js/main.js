@@ -11,6 +11,8 @@ var lastId,
         if (item.length) { return item; }
     });
 
+
+
 // Bind click handler to menu items
 // so we can get a fancy scroll animation
 menuItems.click(function (e) {
@@ -132,8 +134,8 @@ $(window).scroll(function () {
         lastId = id;
         // Set/remove active class
         menuItems
-         .parent().removeClass("active")
-         .end().filter("[href=#" + id + "]").parent().addClass("active");
+         .parent().removeClass("active .mybackground")
+         .end().filter("[href=#" + id + "]").parent().addClass("active .mybackground");
     }
 });
 
