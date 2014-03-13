@@ -18,6 +18,44 @@
 				font: 15px sans-serif;
             }
 			
+			           
+.sidebar-nav {
+    padding: 9px 0;
+
+}
+
+.large-link 
+{
+	height: 2em; 
+	line-height:2em;
+}
+
+
+.sidebar-nav-fixed 
+{
+	
+  overflow: auto;
+  position: relative;
+    position:fixed;
+    top:60px;
+    width:15%;
+
+}
+ 
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        position:static;
+        width: auto;
+    }
+} 
+			
+			
 			.axis path,
 			.axis line {
 			fill: none;
@@ -89,45 +127,37 @@
       </div>
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Highlight!!!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <div id="divd3_1"></div>
-					
-		<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Headline 1</h2>       
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <img src="scatter.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="scatter.html">View details &raquo;</a></p>		  
-        </div>
-        <div class="col-lg-4">
-          <h2>Headline 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <img src="pie.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="pie.html">View details &raquo;</a></p>
+<div class="row-fluid">
+     <div class="span2">
+       <div id="scrolltarget" class="well sidebar-nav sidebar-nav-fixed">
+         <ul class="nav nav-list">
+           <li class="active"><a id="link1" href="#" class="large-link active">Comtrade Users</a></li>                    
+           <li><a id="link2" href="#s2" class="large-link">Queries</a></li>  
+           <li><a id="link3" href="#s3" class="large-link">Production</a></li>                              
+         </ul>
+       </div><!--/.well -->
+     </div><!--/span-->
+     <div class="span10">
+              <div id="s1" class="hero-unit">
+         <h1>Comtrade Users</h1>
+         <p>Weekly average of the daily number of Comtrade <span style="color:steelblue;">users</span>, <span style="color:Red;">paying users</span>, <span style="color:Green;">site licenses</span>, and <span style="color:Orange;">users submitting queries</span>.</p>
+         <div id="user_chart"></div>
+<%--         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>--%>
        </div>
-        <div class="col-lg-4">
-          <h2>Headline 3</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <img src="line.png" width="230" height="120" alt=""/>
-<p><a class="btn btn-default" href="line.html">View details &raquo;</a></p>
-        </div>
-      </div>
 
-      <hr>
+              <div id="s2" class="hero-unit">
+         <h1>Queries</h1>
+         <p>Weekly average of the daily number of Comtrade <span style="color:steelblue;">queries</span>, and <span style="color:Red;">downloads</span>. <span style="color:Green;"></span> <span style="color:Orange;"></span></p>
+         <div id="usage_comtrade_chart"></div>
+       </div>
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
+         <div id="s3" class="hero-unit">
+         <h1>Production</h1>
+         <p>Monthly average of the daily number of usable Comtrade <span style="color:steelblue;">datasets collected</span>, and <span style="color:Red;">datasets released</span>. <span style="color:Green;"></span> <span style="color:Orange;"></span></p>
+         <div id="production_chart"></div>
+       </div>
+     </div><!--/span-->
+   </div><!--/row-->
     </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
@@ -229,7 +259,55 @@
 		});
 
 		</script> 	
-		
+		<script type="text/javascript">
+
+
+    // Cache selectors
+    var lastId,
+    topMenu = $("#scrolltarget"),
+    topMenuHeight = -15,
+    // All list items
+    menuItems = topMenu.find("a"),
+    // Anchors corresponding to menu items
+    scrollItems = menuItems.map(function () {
+        var item = $($(this).attr("href"));
+        if (item.length) { return item; }
+    });
+
+    // Bind click handler to menu items
+    // so we can get a fancy scroll animation
+    menuItems.click(function (e) {
+        var href = $(this).attr("href"),
+      offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight + 1;
+        $('html, body').stop().animate({
+            scrollTop: offsetTop
+        }, 300);
+        e.preventDefault();
+    });
+
+    // Bind to scroll
+    $(window).scroll(function () {
+        // Get container scroll position
+        var fromTop = $(this).scrollTop() + topMenuHeight;
+
+        // Get id of current scroll item
+        var cur = scrollItems.map(function () {
+            if ($(this).offset().top < fromTop)
+                return this;
+        });
+        // Get the id of the current element
+        cur = cur[cur.length - 1];
+        var id = cur && cur.length ? cur[0].id : "";
+
+        if (lastId !== id) {
+            lastId = id;
+            // Set/remove active class
+            menuItems
+         .parent().removeClass("active")
+         .end().filter("[href=#" + id + "]").parent().addClass("active");
+        }
+    });
+   </script>
 				
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
