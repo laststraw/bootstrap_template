@@ -165,11 +165,11 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	var chart = c3.generate({
 		data: {
 			columns: [
-				['data1', 6.0,5.9,6.7,7.5,3.5,0.9,7.2,4.0,4.0,4.2,4.3],
-				['data2', 7.5,7.3,8.7,8.7,5.7,-6.1,4.4,4.7,3.8,2.0,3.0],
-				['data3', 3.8,3.1,2.6,4.4,2.2,1.2,2.5,2.4,3.5,2.6,2.6],
-				['data4', 7.6,8.6,8.2,7.5,4.7,3.7,7.6,6.6,3.6,4.0,4.6],
-				['data5', 6.5,5.8,6.1,6.5,4.3,1.2,8.0,4.6,5.5,5.0,5.1]
+				['data1', 3.9,3.8,4.3,4.7,2.2,0.6,4.6,2.5,2.5,2.7,2.7],
+				['data2', 0.5,0.5,0.6,0.7,0.4,-0.4,0.3,0.3,0.3,0.1,0.2],
+				['data3', 0.3,0.2,0.2,0.3,0.1,0.1,0.2,0.2,0.2,0.2,0.2],
+				['data4', 1.0,1.2,1.2,1.1,0.7,0.6,1.2,1.0,0.6,0.6,0.7],
+				['data5', 0.5,0.4,0.5,0.5,0.3,0.1,0.6,0.4,0.4,0.4,0.4]
 			],
 			names: {
 				data1: 'East and North-East Asia',
@@ -215,6 +215,15 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	
 	var defaultMessage = $('#message').html(), currentIndex = 0, timer, duration = 1000, demos = [
 	function () {
+		chart.load({
+			columns: [
+				['data1', 6.0,5.9,6.7,7.5,3.5,0.9,7.2,4.0,4.0,4.2,4.3],
+				['data2', 7.5,7.3,8.7,8.7,5.7,-6.1,4.4,4.7,3.8,2.0,3.0],
+				['data3', 3.8,3.1,2.6,4.4,2.2,1.2,2.5,2.4,3.5,2.6,2.6],
+				['data4', 7.6,8.6,8.2,7.5,4.7,3.7,7.6,6.6,3.6,4.0,4.6],
+				['data5', 6.5,5.8,6.1,6.5,4.3,1.2,8.0,4.6,5.5,5.0,5.1]
+			]
+		})
 		chart.groups([['data1']]);	
 		setMessage('Regional data')	
 	}
@@ -234,5 +243,5 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	function stopDemo() {
 	clearInterval(timer);
 	document.getElementById('message').innerHTML = defaultMessage;
-	};	
+	};
 // End panuwat
