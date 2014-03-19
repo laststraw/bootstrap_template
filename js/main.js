@@ -179,6 +179,8 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 $('.dataspan').removeClass("label label-warning");
 $('.dataspan:not(#span1)').addClass("label label-default");
 $('#span1').addClass("label label-warning");
+$('#title2').hide();
+$('#title1').show();
 	var chart = c3.generate({
 		data: {
 			columns: [
@@ -244,6 +246,9 @@ chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
 $('.dataspan').removeClass("label label-warning");
 $('.dataspan:not(#span1)').addClass("label label-default");
 $('#span1').addClass("label label-warning");
+$('#title2').hide();
+$('#title1').show();
+
 	}
 	function draw2() {
 		chart.load({
@@ -259,6 +264,9 @@ chart.groups([['data1']]);
 $('.dataspan').removeClass("label label-warning");
 $('.dataspan:not(#span2').addClass("label label-default");
 $('#span2').addClass("label label-warning");
+$('#title1').hide();
+$('#title2').show();
+
 	};
 
 // End panuwat
