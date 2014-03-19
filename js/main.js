@@ -181,6 +181,8 @@ $('.dataspan:not(#span1)').addClass("label label-default");
 $('#span1').addClass("label label-warning");
 $('#title2').hide();
 $('#title1').show();
+$('#footer2').hide();
+$('#footer1').show();
 	var chart = c3.generate({
 		data: {
 			columns: [
@@ -248,25 +250,30 @@ $('.dataspan:not(#span1)').addClass("label label-default");
 $('#span1').addClass("label label-warning");
 $('#title2').hide();
 $('#title1').show();
+$('#footer2').hide();
+$('#footer1').show();
 
 	}
-	function draw2() {
-		chart.load({
-			columns: [
-				['data1', 6.0,5.9,6.7,7.5,3.5,0.9,7.2,4.0,4.0,4.2,4.3],
-				['data2', 7.5,7.3,8.7,8.7,5.7,-6.1,4.4,4.7,3.8,2.0,3.0],
-				['data3', 3.8,3.1,2.6,4.4,2.2,1.2,2.5,2.4,3.5,2.6,2.6],
-				['data4', 7.6,8.6,8.2,7.5,4.7,3.7,7.6,6.6,3.6,4.0,4.6],
-				['data5', 6.5,5.8,6.1,6.5,4.3,1.2,8.0,4.6,5.5,5.0,5.1]
-			]
-		})
-chart.groups([['data1']]);
-$('.dataspan').removeClass("label label-warning");
-$('.dataspan:not(#span2').addClass("label label-default");
-$('#span2').addClass("label label-warning");
-$('#title1').hide();
-$('#title2').show();
 
-	};
+function draw2() {
+    chart.load({
+        columns: [
+				['data1', 6.0, 5.9, 6.7, 7.5, 3.5, 0.9, 7.2, 4.0, 4.0, 4.2, 4.3],
+				['data2', 7.5, 7.3, 8.7, 8.7, 5.7, -6.1, 4.4, 4.7, 3.8, 2.0, 3.0],
+				['data3', 3.8, 3.1, 2.6, 4.4, 2.2, 1.2, 2.5, 2.4, 3.5, 2.6, 2.6],
+				['data4', 7.6, 8.6, 8.2, 7.5, 4.7, 3.7, 7.6, 6.6, 3.6, 4.0, 4.6],
+				['data5', 6.5, 5.8, 6.1, 6.5, 4.3, 1.2, 8.0, 4.6, 5.5, 5.0, 5.1]
+			]
+    })
+    chart.groups([['data1']]);
+    $('.dataspan').removeClass("label label-warning");
+    $('.dataspan:not(#span2').addClass("label label-default");
+    $('#span2').addClass("label label-warning");
+    $('#title1').hide();
+    $('#title2').show();
+    $('#footer1').hide();
+    $('#footer2').show();
+
+};
 
 // End panuwat
