@@ -3,7 +3,7 @@ $(document).ready(function () {
     var winparams = { width: $(window).width(), height: $(window).height() };
     var tosubtract = $('#ournav').height() + parseInt($('#ournav').css('marginBottom')) + parseInt($('#ournav').css('borderBottomWidth'))
         + $('#h1val').height() + parseInt($('#h2val').css('marginTop')) + $('#h2val').height() + parseInt($('#h2val').css('marginBottom'))
-        + $('#pval').height() + parseInt($('#pval').css('marginBottom'));
+        + $('#pval').height() + parseInt($('#pval').css('marginBottom')) + $('#message').height();
     var minparams = { width: 500, height: 300 };
 
     // Cache selectors
