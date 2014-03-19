@@ -6,6 +6,9 @@ $(document).ready(function () {
         + $('#pval').height() + parseInt($('#pval').css('marginBottom')) + $('#message').height();
     var minparams = { width: 500, height: 300 };
 
+
+    var chartdrawn = 1;
+
     // Cache selectors
     var lastId,
     topMenu = $("#scrolltarget"),
@@ -30,6 +33,17 @@ $(document).ready(function () {
         }, 300);
         e.preventDefault();
     });
+    // Add mouseover to change graph here
+    $('#span1').mouseover(function () {
+        draw1();
+
+    });
+
+    $('#span2').mouseover(function () {
+        draw2();
+    });
+
+
 
     var d3parentjs = $('#d3parent').width();
 
@@ -162,6 +176,9 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 
 
 //Start panuwat	
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span1)').addClass("label label-default");
+$('#span1').addClass("label label-warning");
 	var chart = c3.generate({
 		data: {
 			columns: [
@@ -213,8 +230,22 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		}
 	});
 	
-	var defaultMessage = $('#message').html(), currentIndex = 0, timer, duration = 1000, demos = [
-	function () {
+	function draw1() {
+ 		chart.load({
+			columns: [
+				['data1', 3.9,3.8,4.3,4.7,2.2,0.6,4.6,2.5,2.5,2.7,2.7],
+				['data2', 0.5,0.5,0.6,0.7,0.4,-0.4,0.3,0.3,0.3,0.1,0.2],
+				['data3', 0.3,0.2,0.2,0.3,0.1,0.1,0.2,0.2,0.2,0.2,0.2],
+				['data4', 1.0,1.2,1.2,1.1,0.7,0.6,1.2,1.0,0.6,0.6,0.7],
+				['data5', 0.5,0.4,0.5,0.5,0.3,0.1,0.6,0.4,0.4,0.4,0.4]
+			]
+		})
+chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span1)').addClass("label label-default");
+$('#span1').addClass("label label-warning");
+	}
+	function draw2() {
 		chart.load({
 			columns: [
 				['data1', 6.0,5.9,6.7,7.5,3.5,0.9,7.2,4.0,4.0,4.2,4.3],
@@ -224,24 +255,10 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 				['data5', 6.5,5.8,6.1,6.5,4.3,1.2,8.0,4.6,5.5,5.0,5.1]
 			]
 		})
-		chart.groups([['data1']]);	
-		setMessage('Regional data')	
-	}
-	];
-	
-	function setMessage(message) {
-	document.getElementById('message').innerHTML = '<button id="demoMessage" type="button" class="btn btn-default" onclick="stopDemo();" data-toggle="tooltip" data-animation="false" title="Stop Demo" onclick="stopDemo();">'+message+'</button>';
-	// $('#demoMessage').tooltip('toggle');
-	}
-	function startDemo() {
-	setMessage('Process...');
-	timer = setInterval(function(){
-	if (currentIndex == demos.length) currentIndex = 0;
-	demos[currentIndex++]();
-	}, duration);
-	}
-	function stopDemo() {
-	clearInterval(timer);
-	document.getElementById('message').innerHTML = defaultMessage;
+chart.groups([['data1']]);
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span2').addClass("label label-default");
+$('#span2').addClass("label label-warning");
 	};
+
 // End panuwat
