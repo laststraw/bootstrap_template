@@ -6,6 +6,9 @@ $(document).ready(function () {
         + $('#pval').height() + parseInt($('#pval').css('marginBottom'));
     var minparams = { width: 500, height: 300 };
 
+
+    var chartdrawn = 1;
+
     // Cache selectors
     var lastId,
     topMenu = $("#scrolltarget"),
@@ -30,15 +33,18 @@ $(document).ready(function () {
         }, 300);
         e.preventDefault();
     });
-	// Add mouseover to change graph here
-	$('#span1').mouseover(function() {
-		draw1();
-	});		
-	$('#span2').mouseover(function() {
-		draw2();
-	});
+    // Add mouseover to change graph here
+    $('#span1').mouseover(function () {
+        draw1();
 
-	
+    });
+
+    $('#span2').mouseover(function () {
+        draw2();
+    });
+
+
+
     var d3parentjs = $('#d3parent').width();
 
     var margin = { top: 20, right: 20, bottom: 30, left: 60 },
@@ -170,6 +176,9 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 
 
 //Start panuwat	
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span1)').addClass("label label-default");
+$('#span1').addClass("label label-warning");
 	var chart = c3.generate({
 		data: {
 			columns: [
@@ -231,7 +240,10 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 				['data5', 0.5,0.4,0.5,0.5,0.3,0.1,0.6,0.4,0.4,0.4,0.4]
 			]
 		})
-		chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);	
+chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span1)').addClass("label label-default");
+$('#span1').addClass("label label-warning");
 	}
 	function draw2() {
 		chart.load({
@@ -243,7 +255,10 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 				['data5', 6.5,5.8,6.1,6.5,4.3,1.2,8.0,4.6,5.5,5.0,5.1]
 			]
 		})
-		chart.groups([['data1']]);		
+chart.groups([['data1']]);
+$('.dataspan').removeClass("label label-warning");
+$('.dataspan:not(#span2').addClass("label label-default");
+$('#span2').addClass("label label-warning");
 	};
 
 // End panuwat
