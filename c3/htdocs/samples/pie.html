@@ -35,6 +35,11 @@
           y: {
             label: 'Petal.Width'
           }
+        },
+        pie: {
+          onmouseover: function (d, i) { console.log(d, i); },
+          onmouseout: function (d, i) { console.log(d, i); },
+          onclick: function (d, i) { console.log(d, i); },
         }
       });
 
@@ -42,7 +47,7 @@
       console.log("== LOAD ==");
         chart.load({
           columns: [
-            ['data1', 30, 20, 50, 40, 60, 50],
+            ["setosa", 30],
           ]
         });
       }, 1000);
