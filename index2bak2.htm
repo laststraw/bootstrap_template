@@ -11,22 +11,19 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Panuwat made a change -->
 		<link rel="stylesheet" type="text/css" href="c3/c3.css">	
-		<link rel="stylesheet" href="css/main.css">
-<!--    <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
-        		
-		<style>
-		.c3-region.foo {
-		  fill: red;
-		}
-		</style>
+		
+<!--       <link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+        <link rel="stylesheet" href="css/main.css">		
 		
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/vendor/d3.js"></script>
-		<script type="text/javascript" src="c3/c3.js"></script>
+<!-- Panuwat made yet another change -->
+		<script type="text/javascript" src="c3/c3.min.js"></script>
 		
     </head>
 	
@@ -104,38 +101,53 @@
 
 			<div id="s2" class="jumbotron">
 				<div class="container">
-					<h1 id="h1">GDP Growth <small>North and Central Asia</small></h1>
+					<h1 id="h1">GDP Growth <small>East and Northeast Asia</small></h1>
 					<h2 id="h2">Modest slowdown</h2>
-					<p id="p1">As a result of the in the developed world, the Asia-Pacific region experienced a.</p>				  
+					<p id="p1">As a result of the <span class="label label-warning">reduced demand</span> in the developed world, the Asia-Pacific region experienced a <span class="label label-danger">broad slowdown in 2012</span>.</p>
 
 					<div class="row">
 						<div id="d3parent_2" class="col-md-8">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span id="title3">Value added by sector 
-											<select id="country1" onchange="GetSelectedItem1();"></select> VS 										
-											<select id="country2" onchange="GetSelectedItem2();"></select>
-										</span>											
-									</h3>
-								</div>  							
-								<div class="panel-body">
-									<!-- Prepare a DOM where 2nd Interactive Graph will be inserted -->									
-									<div id="chart2" style="height:280px"></div>
-									<br />
-									<div id="chart3" style="height:280px"></div>
-								</div>								
-								<div class="panel-footer" style="height:6em;">
-								  <span id="footer3">Please add something on this footer area.</span>
-								</div>							
+							<!-- Prepare a DOM where 2nd Interactive Graph will be inserted -->
+							<div>
+								<select id="country1" onchange="GetSelectedItem1();">
+									<option value="SouthEastAsia">South-East Asia</option>
+									<option value="Brunei">Brunei Darussalam</option>
+									<option value="Cambodia">Cambodia</option>
+									<option value="Indonesia">Indonesia</option>
+									<option value="LPDR">Lao PDR</option>
+									<option value="Malaysia">Malaysia</option>
+									<option value="Myanmar">Myanmar</option>
+									<option value="Philippines">Philippines</option>
+									<option value="Singapore">Singapore</option>
+									<option value="Thailand">Thailand</option>
+									<option value="TimorLeste">Timor-Leste</option>
+									<option value="VietNam">Viet Nam</option>
+								</select>
 							</div>
-						</div>
+							<div id="chart2" style="height:280px"></div>							
+							<div>
+								<select id="country2" onchange="GetSelectedItem2();">
+									<option value="SouthEastAsia">South-East Asia</option>
+									<option value="Brunei">Brunei Darussalam</option>
+									<option value="Cambodia">Cambodia</option>
+									<option value="Indonesia">Indonesia</option>
+									<option value="LPDR">Lao PDR</option>
+									<option value="Malaysia">Malaysia</option>
+									<option value="Myanmar">Myanmar</option>
+									<option value="Philippines">Philippines</option>
+									<option value="Singapore">Singapore</option>
+									<option value="Thailand">Thailand</option>
+									<option value="TimorLeste">Timor-Leste</option>
+									<option value="VietNam">Viet Nam</option>
+								</select>
+							</div>
+							<div id="chart3" style="height:280px"></div>
+						</div>						
 						<div class="col-md-4">
-							<p>The provided by large economies has decreased significantly over time, in particular with regards to East and Northeast Asia.</p>
-							<p>The improved projections are buoyed primarily by higher in South and Southwest Asia, after significant decreases in growth rates in several key regions, including East and Northeast Asia and South and Southwest Asia, hampered growth during 2011 and 2012.</p>             
+							 <p> A number of large economies in Asia and the Pacific have slowed markedly, <span class="label label-default">reducing the support</span> they had previously provided to the region.</p>
 						</div>
-					</div>
-				</div>
+					</div>				
+				</div>			
 					<p><a href="table_bar.xlsx" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 			</div>
  

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>GDP Growth</title>
+		
+		<!-- Load css for c3 basic styles -->
+		<link rel="stylesheet" type="text/css" href="c3/c3.css">
+		
+		<!-- Load jQuery, d3.js and c3.js -->
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="c3/c3.js"></script>		
+    </head>
+    <body>
+	
+	<div>Chart#1
+		<select id="country1" onchange="GetSelectedItem1();"></select>				
+	</div>
+	<div id="chart" style="height:350px"></div>
+		
+	<div>Chart#2
+		<select id="country2" onchange="GetSelectedItem2();"></select>
+	</div>
+	<div id="chart2" style="height:350px"></div>
+	
+	<script type="text/javascript">
+	
+	$(function() {		
+		$("#country1, #country2").load("/myd3/country_w_val.txt");		
+	});	
+	
+	function GetSelectedItem1() {
+		var e = document.getElementById("country1");
+		var strSel = e.options[e.selectedIndex].value;
+		chart.load({
+			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+		});
+	}
+	
+	function GetSelectedItem2() {
+		var e = document.getElementById("country2");
+		var strSel = e.options[e.selectedIndex].value;
+		chart2.load({
+			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+		});
+	}
+	
+	var chart = c3.generate({
+		data: {
+			x: 'year',
+			x_format: '%Y',
+			url: '/myd3/gdp_by_sector/Afghanistan.csv',
+			names: {
+				sec1: 'Agriculture',
+				sec2: 'Industry',
+				sec3: 'Services'
+			},
+			type: 'bar',
+			groups: [
+				['sec1', 'sec2', 'sec3']
+			]
+		},
+		bar: {
+			width: {
+				ratio: 0.9
+			}
+		},
+		color: {
+			pattern: ['#2ca02c', '#ff7f0e', '#1f77b4']
+		},	
+		axis: {
+			y: {
+				tick: {
+					format: d3.format("%")
+				}
+			},
+			x: {
+				type : 'timeseries',
+				tick : {
+					format : "%Y"
+				}
+			}
+		}
+	});	
+	
+	var chart2 = c3.generate({
+		bindto: '#chart2',
+		data: {
+			x: 'year',
+			x_format: '%Y',
+			url: '/myd3/gdp_by_sector/Afghanistan.csv',
+			names: {
+				sec1: 'Agriculture',
+				sec2: 'Industry',
+				sec3: 'Service'
+			},
+			type: 'bar',
+			groups: [
+				['sec1', 'sec2', 'sec3']
+			]
+		},
+		bar: {
+			width: {
+				ratio: 0.9
+			}
+		},
+		color: {
+			pattern: ['#2ca02c', '#ff7f0e', '#1f77b4']
+		},	
+		axis: {
+			y: {
+				tick: {
+					format: d3.format("%")
+				}
+			},
+			x: {
+				type : 'timeseries',
+				tick : {
+					format : "%Y"
+				}
+			}
+		}
+	});	
+	
+	</script>
+    </body>
+</html>

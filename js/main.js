@@ -42,106 +42,7 @@ $(document).ready(function () {
     $('#span2').mouseover(function () {
         draw2();
     });
-
-
-
-    var d3parentjs = $('#d3parent').width();
-
-    var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-			width = d3parentjs - margin.left - margin.right,
-			height = Math.max(winparams.height - tosubtract, minparams.height) - margin.top - margin.bottom;
-
-    $('.tempgraph').css("width", width + margin.left + margin.right);
-    $('.tempgraph').css("height", height + margin.top + margin.bottom);
-
-    var x0 = d3.scale.ordinal()
-			.rangeRoundBands([0, width], .1);
-
-    var x1 = d3.scale.ordinal();
-
-    var y = d3.scale.linear()
-			.range([height, 0]);
-
-    var color = d3.scale.ordinal()
-			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-    var xAxis = d3.svg.axis()
-			.scale(x0)
-			.orient("bottom");
-
-    var yAxis = d3.svg.axis()
-			.scale(y)
-			.orient("left")
-			.tickFormat(d3.format(".2s"));
-
-    var svg = d3.select("#divd3_1").append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
-		    .append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    d3.csv("bar.csv", function (error, data) {
-        var ageNames = d3.keys(data[0]).filter(function (key) { return key !== "State"; });
-
-        data.forEach(function (d) {
-            d.ages = ageNames.map(function (name) { return { name: name, value: +d[name] }; });
-        });
-
-        x0.domain(data.map(function (d) { return d.State; }));
-        x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-        y.domain([0, d3.max(data, function (d) { return d3.max(d.ages, function (d) { return d.value; }); })]);
-
-        svg.append("g")
-			  .attr("class", "x axis")
-			  .attr("transform", "translate(0," + height + ")")
-			  .call(xAxis);
-
-        svg.append("g")
-			  .attr("class", "y axis")
-			  .call(yAxis)
-			  .append("text")
-			  .attr("transform", "rotate(-90)")
-			  .attr("y", 6)
-			  .attr("dy", ".71em")
-			  .style("text-anchor", "end")
-			  .text("Population");
-
-        var state = svg.selectAll(".state")
-			  .data(data)
-			  .enter().append("g")
-			  .attr("class", "g")
-			  .attr("transform", function (d) { return "translate(" + x0(d.State) + ",0)"; });
-
-        state.selectAll("rect")
-			  .data(function (d) { return d.ages; })
-			  .enter().append("rect")
-			  .attr("width", x1.rangeBand())
-			  .attr("x", function (d) { return x1(d.name); })
-			  .attr("y", function (d) { return y(d.value); })
-			  .attr("height", function (d) { return height - y(d.value); })
-			  .style("fill", function (d) { return color(d.name); });
-
-        var legend = svg.selectAll(".legend")
-			  .data(ageNames.slice().reverse())
-			  .enter().append("g")
-			  .attr("class", "legend")
-			  .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
-
-        legend.append("rect")
-			  .attr("x", width - 18)
-			  .attr("width", 18)
-			  .attr("height", 18)
-			  .style("fill", color);
-
-        legend.append("text")
-			  .attr("x", width - 24)
-			  .attr("y", 9)
-			  .attr("dy", ".35em")
-			  .style("text-anchor", "end")
-			  .text(function (d) { return d; });
-
-    });
-
+	
     // Bind to scroll
     $(window).scroll(function () {
         // Get container scroll position
@@ -175,23 +76,20 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 } (document, 'script'));
 
 
-//Start panuwat	
-$('.dataspan').removeClass("label label-warning");
-$('.dataspan:not(#span1)').addClass("label label-default");
-$('#span1').addClass("label label-warning");
-$('#title2').hide();
-$('#title1').show();
-$('#footer2').hide();
-$('#footer1').show();
+//Start 1st Graph
+	$('.dataspan').removeClass("label label-warning");
+	$('.dataspan:not(#span1)').addClass("label label-default");
+	$('#span1').addClass("label label-warning");
+	$('#title2').hide();
+	$('#title1').show();
+	$('#footer2').hide();
+	$('#footer1').show();
+
 	var chart = c3.generate({
 		data: {
-			columns: [
-				['data1', 3.9,3.8,4.3,4.7,2.2,0.6,4.6,2.5,2.5,2.7,2.7],
-				['data2', 0.5,0.5,0.6,0.7,0.4,-0.4,0.3,0.3,0.3,0.1,0.2],
-				['data3', 0.3,0.2,0.2,0.3,0.1,0.1,0.2,0.2,0.2,0.2,0.2],
-				['data4', 1.0,1.2,1.2,1.1,0.7,0.6,1.2,1.0,0.6,0.6,0.7],
-				['data5', 0.5,0.4,0.5,0.5,0.3,0.1,0.6,0.4,0.4,0.4,0.4]
-			],
+			x: 'year',
+			x_format: '%Y%m%d',
+			url: '/bootstrap_template/stack_unstack/draw1_ts_re.csv',
 			names: {
 				data1: 'East and North-East Asia',
 				data2: 'North and Central Asia',
@@ -205,9 +103,7 @@ $('#footer1').show();
 			]
 		},
 		
-		regions: [
-			{start:8.5}
-		],
+		regions: [{start:'20120701', class:'foo'}],
 		
 		grid: {
 			y: {
@@ -224,56 +120,147 @@ $('#footer1').show();
 				}
 			},
 			x: {
+					type : 'timeseries',
+					tick : {
+						format : "%Y",
+						culling: false
+					},
 				label: {
 					text: 'Year',
 					position: 'outer-right'
-				},
-				type: 'categorized',
-				categories: ['2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013b', '2014c']
+				}				
 			}
 		}
 	});
 	
 	function draw1() {
  		chart.load({
-			columns: [
-				['data1', 3.9,3.8,4.3,4.7,2.2,0.6,4.6,2.5,2.5,2.7,2.7],
-				['data2', 0.5,0.5,0.6,0.7,0.4,-0.4,0.3,0.3,0.3,0.1,0.2],
-				['data3', 0.3,0.2,0.2,0.3,0.1,0.1,0.2,0.2,0.2,0.2,0.2],
-				['data4', 1.0,1.2,1.2,1.1,0.7,0.6,1.2,1.0,0.6,0.6,0.7],
-				['data5', 0.5,0.4,0.5,0.5,0.3,0.1,0.6,0.4,0.4,0.4,0.4]
-			]
+			url: '/bootstrap_template/stack_unstack/draw1_ts_re.csv',
 		})
-chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
-$('.dataspan').removeClass("label label-warning");
-$('.dataspan:not(#span1)').addClass("label label-default");
-$('#span1').addClass("label label-warning");
-$('#title2').hide();
-$('#title1').show();
-$('#footer2').hide();
-$('#footer1').show();
+		chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
+		$('.dataspan').removeClass("label label-warning");
+		$('.dataspan:not(#span1)').addClass("label label-default");
+		$('#span1').addClass("label label-warning");
+		$('#title2').hide();
+		$('#title1').show();
+		$('#footer2').hide();
+		$('#footer1').show();
+	};
+	
+	function draw2() {
+		chart.load({
+			url: '/bootstrap_template/stack_unstack/draw2_ts_re.csv',
+		})
+		chart.groups([['data1']]);	
+		$('.dataspan').removeClass("label label-warning");
+		$('.dataspan:not(#span2').addClass("label label-default");
+		$('#span2').addClass("label label-warning");
+		$('#title1').hide();
+		$('#title2').show();
+		$('#footer1').hide();
+		$('#footer2').show();
+	};
+// End 1st Graph
 
+
+// Start 2nd Graph
+	$(function() {		
+		$("#country1, #country2").load("/myd3/country_w_val.txt");		
+	});	
+	
+	function GetSelectedItem1() {
+		var e = document.getElementById("country1");
+		var strSel = e.options[e.selectedIndex].value;
+		chart2.load({
+			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+		});
 	}
-
-function draw2() {
-    chart.load({
-        columns: [
-				['data1', 6.0, 5.9, 6.7, 7.5, 3.5, 0.9, 7.2, 4.0, 4.0, 4.2, 4.3],
-				['data2', 7.5, 7.3, 8.7, 8.7, 5.7, -6.1, 4.4, 4.7, 3.8, 2.0, 3.0],
-				['data3', 3.8, 3.1, 2.6, 4.4, 2.2, 1.2, 2.5, 2.4, 3.5, 2.6, 2.6],
-				['data4', 7.6, 8.6, 8.2, 7.5, 4.7, 3.7, 7.6, 6.6, 3.6, 4.0, 4.6],
-				['data5', 6.5, 5.8, 6.1, 6.5, 4.3, 1.2, 8.0, 4.6, 5.5, 5.0, 5.1]
+	
+	function GetSelectedItem2() {
+		var e = document.getElementById("country2");
+		var strSel = e.options[e.selectedIndex].value;
+		chart3.load({
+			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+		});
+	}
+	
+	var chart2 = c3.generate({
+		bindto: '#chart2',
+		data: {
+			x: 'year',
+			x_format: '%Y',
+			url: '/bootstrap_template/gdp_by_sector/Afghanistan.csv',
+			names: {
+				sec1: 'Agriculture',
+				sec2: 'Industry',
+				sec3: 'Services'
+			},
+			type: 'bar',
+			groups: [
+				['sec1', 'sec2', 'sec3']
 			]
-    })
-    chart.groups([['data1']]);
-    $('.dataspan').removeClass("label label-warning");
-    $('.dataspan:not(#span2').addClass("label label-default");
-    $('#span2').addClass("label label-warning");
-    $('#title1').hide();
-    $('#title2').show();
-    $('#footer1').hide();
-    $('#footer2').show();
-
-};
-
-// End panuwat
+		},
+		bar: {
+			width: {
+				ratio: 0.9
+			}
+		},
+		color: {
+			pattern: ['#2ca02c', '#ff7f0e', '#1f77b4']
+		},	
+		axis: {
+			y: {
+				tick: {
+					format: d3.format("%")
+				}
+			},
+			x: {
+				type : 'timeseries',
+				tick : {
+					format : "%Y" ,
+					culling: false
+				}
+			}
+		}
+	});	
+	
+	var chart3 = c3.generate({
+		bindto: '#chart3',
+		data: {
+			x: 'year',
+			x_format: '%Y',
+			url: '/bootstrap_template/gdp_by_sector/Afghanistan.csv',
+			names: {
+				sec1: 'Agriculture',
+				sec2: 'Industry',
+				sec3: 'Service'
+			},
+			type: 'bar',
+			groups: [
+				['sec1', 'sec2', 'sec3']
+			]
+		},
+		bar: {
+			width: {
+				ratio: 0.9
+			}
+		},
+		color: {
+			pattern: ['#2ca02c', '#ff7f0e', '#1f77b4']
+		},	
+		axis: {
+			y: {
+				tick: {
+					format: d3.format("%")
+				}
+			},
+			x: {
+				type : 'timeseries',
+				tick : {
+					format : "%Y",
+					culling: false
+				}
+			}
+		}
+	});	
+// End 2nd Graph
