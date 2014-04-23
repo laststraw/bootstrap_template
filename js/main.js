@@ -217,8 +217,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 			x: {
 				type : 'timeseries',
 				tick : {
-					format : "%Y" ,
-					culling: false
+					format : "%Y"
 				}
 			}
 		}
@@ -257,8 +256,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 			x: {
 				type : 'timeseries',
 				tick : {
-					format : "%Y",
-					culling: false
+					format : "%Y"
 				}
 			}
 		}
