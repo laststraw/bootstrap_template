@@ -165,14 +165,14 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 
 // Start 2nd Graph
 	$(function() {		
-		$("#country1, #country2").load("/myd3/country_w_val.txt");		
+		$("#country1, #country2").load("/bootstrap_template/country_w_val.txt");		
 	});	
 	
 	function GetSelectedItem1() {
 		var e = document.getElementById("country1");
 		var strSel = e.options[e.selectedIndex].value;
 		chart2.load({
-			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+			url: '/bootstrap_template/gdp_by_sector/'+strSel+'.csv'
 		});
 	}
 	
@@ -180,7 +180,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		var e = document.getElementById("country2");
 		var strSel = e.options[e.selectedIndex].value;
 		chart3.load({
-			url: '/myd3/gdp_by_sector/'+strSel+'.csv'
+			url: '/bootstrap_template/gdp_by_sector/'+strSel+'.csv'
 		});
 	}
 	
