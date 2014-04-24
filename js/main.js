@@ -262,3 +262,71 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		}
 	});	
 // End 2nd Graph
+
+// Start 3rd Graph
+	(function() {
+		$("#n1,#n2,#n3").load("/bootstrap_template/country.txt");
+		
+		var prev1, prev2, prev3;		
+		$("#n1,#n2,#n3").focus(function() {
+			prev1 = $(this).val();
+			prev2 = $(this).val();
+			prev3 = $(this).val();
+		}).change(function() {
+			var c1 = $("#n1").find('option:selected').text();
+			var c2 = $("#n2").find('option:selected').text();
+			var c3 = $("#n3").find('option:selected').text();
+			chart4.toggle([prev1,prev2,prev3]);
+			chart4.sd([c1,c2,c3]);
+			prev1 = $(this).val();
+			prev2 = $(this).val();
+			prev3 = $(this).val();
+		});
+	})();
+		
+	var chart4 = c3.generate({
+		bindto: '#chart4',
+		data: {
+			x: 'year',
+			x_format: '%Y',
+			url: '/bootstrap_template/gdp_growth_rate.csv',
+		},
+		legend: {
+			show: false
+		},
+		line: {
+			connect_null: false
+		},
+		grid: {
+			y: {
+				lines: [{value:0}],
+				show: true
+			}
+		},
+		axis: {
+			y: {
+				label: {
+					text: '% change per annum',
+					position: 'outer-middle'
+				}
+			},
+			x: {
+					type : 'timeseries',
+					tick : {
+						format : "%Y",
+						culling: {
+							max: 6
+						}
+					},
+				label: {
+					text: 'Year',
+					position: 'outer-right'
+				}				
+			}
+		}
+	});
+	
+	setTimeout(function() {		
+		chart4.toggle();
+	}, 500);
+// End 3rd Graph
