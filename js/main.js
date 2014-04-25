@@ -89,7 +89,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		data: {
 			x: 'year',
 			x_format: '%Y%m%d',
-			url: '/bootstrap_template/stack_unstack/draw1_ts_re.csv',
+			url: '/bootstrap_template/dataset/stack_unstack/draw1_ts_re.csv',
 			names: {
 				data1: 'East and North-East Asia',
 				data2: 'North and Central Asia',
@@ -135,7 +135,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	
 	function draw1() {
  		chart.load({
-			url: '/bootstrap_template/stack_unstack/draw1_ts_re.csv',
+			url: '/bootstrap_template/dataset/stack_unstack/draw1_ts_re.csv',
 		})
 		chart.groups([['data1', 'data2', 'data3', 'data4', 'data5']]);
 		$('.dataspan').removeClass("label label-warning");
@@ -149,7 +149,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	
 	function draw2() {
 		chart.load({
-			url: '/bootstrap_template/stack_unstack/draw2_ts_re.csv',
+			url: '/bootstrap_template/dataset/stack_unstack/draw2_ts_re.csv',
 		})
 		chart.groups([['data1']]);	
 		$('.dataspan').removeClass("label label-warning");
@@ -165,14 +165,14 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 
 // Start 2nd Graph
 	$(function() {		
-		$("#country1, #country2").load("/bootstrap_template/country_w_val.txt");		
+		$("#country1, #country2").load("/bootstrap_template/dataset/drop_down/country_w_val.txt");		
 	});	
 	
 	function GetSelectedItem1() {
 		var e = document.getElementById("country1");
 		var strSel = e.options[e.selectedIndex].value;
 		chart2.load({
-			url: '/bootstrap_template/gdp_by_sector/'+strSel+'.csv'
+			url: '/bootstrap_template/dataset/gdp_sector/'+strSel+'.csv'
 		});
 	}
 	
@@ -180,7 +180,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		var e = document.getElementById("country2");
 		var strSel = e.options[e.selectedIndex].value;
 		chart3.load({
-			url: '/bootstrap_template/gdp_by_sector/'+strSel+'.csv'
+			url: '/bootstrap_template/dataset/gdp_sector/'+strSel+'.csv'
 		});
 	}
 	
@@ -189,7 +189,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		data: {
 			x: 'year',
 			x_format: '%Y',
-			url: '/bootstrap_template/gdp_by_sector/Afghanistan.csv',
+			url: '/bootstrap_template/dataset/gdp_sector/Afghanistan.csv',
 			names: {
 				sec1: 'Agriculture',
 				sec2: 'Industry',
@@ -228,7 +228,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		data: {
 			x: 'year',
 			x_format: '%Y',
-			url: '/bootstrap_template/gdp_by_sector/Afghanistan.csv',
+			url: '/bootstrap_template/dataset/gdp_sector/Afghanistan.csv',
 			names: {
 				sec1: 'Agriculture',
 				sec2: 'Industry',
@@ -265,7 +265,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 
 // Start 3rd Graph
 	(function() {
-		$("#n1,#n2,#n3").load("/bootstrap_template/country.txt");
+		$("#n1,#n2,#n3").load("/bootstrap_template/dataset/drop_down/country.txt");
 		
 		var prev1, prev2, prev3;		
 		$("#n1,#n2,#n3").focus(function() {
@@ -289,7 +289,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		data: {
 			x: 'year',
 			x_format: '%Y',
-			url: '/bootstrap_template/gdp_growth_rate.csv',
+			url: '/bootstrap_template/dataset/gdp_growth_rate.csv',
 		},
 		legend: {
 			show: false
