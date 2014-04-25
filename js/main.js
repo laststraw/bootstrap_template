@@ -269,18 +269,18 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		
 		var prev1, prev2, prev3;		
 		$("#n1,#n2,#n3").focus(function() {
-			prev1 = $(this).val();
-			prev2 = $(this).val();
-			prev3 = $(this).val();
+			prev1 = $("#n1").val();
+			prev2 = $("#n2").val();
+			prev3 = $("#n3").val();
 		}).change(function() {
 			var c1 = $("#n1").find('option:selected').text();
 			var c2 = $("#n2").find('option:selected').text();
 			var c3 = $("#n3").find('option:selected').text();
 			chart4.toggle([prev1,prev2,prev3]);
 			chart4.sd([c1,c2,c3]);
-			prev1 = $(this).val();
-			prev2 = $(this).val();
-			prev3 = $(this).val();
+			prev1 = $("#n1").val();
+			prev2 = $("#n2").val();
+			prev3 = $("#n3").val();
 		});
 	})();
 		
