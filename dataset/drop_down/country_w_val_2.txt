@@ -1,5 +1,5 @@
 <option value="Afghanistan">Afghanistan</option>
-<option value="Armenia">Armenia</option>
+<option value="Armenia" selected>Armenia</option>
 <option value="Australia">Australia</option>
 <option value="Azerbaijan">Azerbaijan</option>
 <option value="Bangladesh">Bangladesh</option>
