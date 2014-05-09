@@ -296,6 +296,9 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		
 	var chart4 = c3.generate({
 		bindto: '#chart4',
+		padding: {
+			right: 8,
+		},
 		data: {
 			x: 'year',
 			x_format: '%Y',
@@ -324,6 +327,9 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 					type : 'timeseries',
 					tick : {
 						format : "%Y",
+						culling: {
+							max: 6
+						}
 					},
 				label: {
 					text: 'Year',
