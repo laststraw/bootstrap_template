@@ -269,25 +269,30 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 // End 2nd Graph
 
 // Start 3rd Graph
-	(function() {
+	$(document).ready(function () {
+		//Load data to drop-down list
 		$("#n1,#n2,#n3").load("dataset/drop_down/country.txt");
 		
-		var prev1, prev2, prev3;		
-		$("#n1,#n2,#n3").focus(function() {
-			prev1 = $("#n1").val();
-			prev2 = $("#n2").val();
-			prev3 = $("#n3").val();
-		}).change(function() {
-			var c1 = $("#n1").find('option:selected').text();
-			var c2 = $("#n2").find('option:selected').text();
-			var c3 = $("#n3").find('option:selected').text();
-			chart4.toggle([prev1,prev2,prev3]);
-			chart4.sd([c1,c2,c3]);
-			prev1 = $("#n1").val();
-			prev2 = $("#n2").val();
-			prev3 = $("#n3").val();
+		$("#n1,#n2,#n3").change(function () {
+			//Track change from drop-down list
+			var c1 = $("#n1").find('option:selected').val();
+			var c2 = $("#n2").find('option:selected').val();
+			var c3 = $("#n3").find('option:selected').val();
+			//Assign fixed colours to each drop-down list
+			var myCols = {};
+			myCols[c1] = d3.rgb('#2ca02c');
+			myCols[c2] = d3.rgb('#ff7f0e');
+			myCols[c3] = d3.rgb('#1f77b4');			
+			//Hide all data then plot selected data from drop-down
+			chart4.hide(null, {
+				withLegend: true
+			});
+			chart4.data.colors(myCols);
+			chart4.show([c1, c2, c3], {
+				withLegend: true
+			});			
 		});
-	})();
+	});
 		
 	var chart4 = c3.generate({
 		bindto: '#chart4',
@@ -295,6 +300,7 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 			x: 'year',
 			x_format: '%Y',
 			url: 'dataset/gdp_growth_rate.csv',
+			hide: true
 		},
 		legend: {
 			show: false
@@ -304,7 +310,6 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 		},
 		grid: {
 			y: {
-				lines: [{value:0}],
 				show: true
 			}
 		},
@@ -319,9 +324,6 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 					type : 'timeseries',
 					tick : {
 						format : "%Y",
-						culling: {
-							max: 6
-						}
 					},
 				label: {
 					text: 'Year',
@@ -330,8 +332,4 @@ var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 			}
 		}
 	});
-	
-	setTimeout(function() {		
-		chart4.toggle();
-	}, 500);
 // End 3rd Graph

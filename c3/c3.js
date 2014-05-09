@@ -2,7 +2,7 @@
     'use strict';
 
     var c3 = {
-        version: "0.1.35"
+        version: "0.1.36"
     };
 
     var CLASS = {
@@ -336,8 +336,8 @@
             subXOrient = __axis_rotated ? "left" : "bottom";
 
         var translate = {
-            main : function () { return "translate(" + margin.left + "," + margin.top + ")"; },
-            context : function () { return "translate(" + margin2.left + "," + margin2.top + ")"; },
+            main : function () { return "translate(" + asHalfPixel(margin.left) + "," + asHalfPixel(margin.top) + ")"; },
+            context : function () { return "translate(" + asHalfPixel(margin2.left) + "," + asHalfPixel(margin2.top) + ")"; },
             legend : function () { return "translate(" + margin3.left + "," + margin3.top + ")"; },
             x : function () { return "translate(0," + (__axis_rotated ? 0 : height) + ")"; },
             y : function () { return "translate(0," + (__axis_rotated ? height : 0) + ")"; },
@@ -353,6 +353,10 @@
 
         function getClipPath(id) {
             return "url(" + document.URL.split('#')[0] + "#" + id + ")";
+        }
+
+        function asHalfPixel(n) {
+            return Math.ceil(n) + 0.5;
         }
 
         function transformMain(withTransition, transitions) {
@@ -539,7 +543,8 @@
             return +d3.select(__bindto).style('height').replace('px', ''); // TODO: if rotated, use width
         }
         function getAxisClipX(forHorizontal) {
-            return forHorizontal ? -(1 + 4) : -(margin.left - 1);
+            // axis line width + padding for left
+            return forHorizontal ? -(1 + 30) : -(margin.left - 1);
         }
         function getAxisClipY(forHorizontal) {
             return forHorizontal ? -20 : -4;
@@ -557,7 +562,8 @@
             return getAxisClipY(__axis_rotated);
         }
         function getAxisClipWidth(forHorizontal) {
-            return forHorizontal ? width + 2 + 4 : margin.left + 20;
+            // width + axis line width + padding for left/right
+            return forHorizontal ? width + 2 + 30 + 30 : margin.left + 20;
         }
         function getAxisClipHeight(forHorizontal) {
             return forHorizontal ? (__axis_x_height ? __axis_x_height : 0) + 80 : height + 8;
@@ -660,13 +666,17 @@
                 scale[key] = _scale[key];
             }
             scale.orgDomain = function () {
-                return _scale.domain();
+                var domain = _scale.domain();
+                if (orgXDomain && orgXDomain[0] === domain[0] && orgXDomain[1] < domain[1]) {
+                    domain[1] = orgXDomain[1];
+                }
+                return domain;
             };
             // define custom domain() for categorized axis
             if (isCategorized) {
                 scale.domain = function (domain) {
                     if (!arguments.length) {
-                        domain = _scale.domain();
+                        domain = this.orgDomain();
                         return [domain[0], domain[1] + 1];
                     }
                     _scale.domain(domain);
@@ -1837,7 +1847,8 @@
             main.select('line.' + CLASS.xgridFocus).style("visibility", "hidden");
         }
         function generateGridData(type, scale) {
-            var gridData = [], xDomain, firstYear, lastYear, i;
+            var gridData = [], xDomain, firstYear, lastYear, i,
+                tickNum = main.select("." + CLASS.axisX).selectAll('.tick').size();
             if (type === 'year') {
                 xDomain = getXDomain();
                 firstYear = xDomain[0].getFullYear();
@@ -1848,7 +1859,7 @@
             } else {
                 gridData = scale.ticks(10);
             }
-            return gridData;
+            return gridData.slice(0, tickNum);
         }
 
         //-- Circle --//
@@ -2131,6 +2142,7 @@
             toggleBar(selected, target, d.data, i);
         }
         function getToggle(that) {
+            // path selection not supported yet
             return that.nodeName === 'circle' ? togglePoint : (d3.select(that).classed(CLASS.bar) ? toggleBar : toggleArc);
         }
 
@@ -2522,40 +2534,6 @@
                 grid.append('g').attr('class', CLASS.ygridLines);
             }
 
-            // Add Axis
-            if (__axis_x_show) {
-                main.append("g")
-                    .attr("class", CLASS.axisX)
-                    .attr("clip-path", clipPathForXAxis)
-                    .attr("transform", translate.x)
-                  .append("text")
-                    .attr("class", CLASS.axisXLabel)
-                    .attr("transform", __axis_rotated ? "rotate(-90)" : "")
-                    .style("text-anchor", textAnchorForXAxisLabel);
-            }
-
-            if (__axis_y_show) {
-                main.append("g")
-                    .attr("class", CLASS.axisY)
-                    .attr("clip-path", clipPathForYAxis)
-                    .attr("transform", translate.y)
-                  .append("text")
-                    .attr("class", CLASS.axisYLabel)
-                    .attr("transform", __axis_rotated ? "" : "rotate(-90)")
-                    .style("text-anchor", textAnchorForYAxisLabel);
-            }
-
-            if (__axis_y2_show) {
-                main.append("g")
-                    .attr("class", CLASS.axisY2)
-                    // clip-path?
-                    .attr("transform", translate.y2)
-                  .append("text")
-                    .attr("class", CLASS.axisY2Label)
-                    .attr("transform", __axis_rotated ? "" : "rotate(-90)")
-                    .style("text-anchor", textAnchorForY2AxisLabel);
-            }
-
             // Regions
             main.append('g')
                 .attr("clip-path", clipPath)
@@ -2606,6 +2584,40 @@
             // Set default extent if defined
             if (__axis_x_default) {
                 brush.extent(typeof __axis_x_default !== 'function' ? __axis_x_default : __axis_x_default(getXDomain()));
+            }
+
+            // Add Axis
+            if (__axis_x_show) {
+                main.append("g")
+                    .attr("class", CLASS.axisX)
+                    .attr("clip-path", clipPathForXAxis)
+                    .attr("transform", translate.x)
+                  .append("text")
+                    .attr("class", CLASS.axisXLabel)
+                    .attr("transform", __axis_rotated ? "rotate(-90)" : "")
+                    .style("text-anchor", textAnchorForXAxisLabel);
+            }
+
+            if (__axis_y_show) {
+                main.append("g")
+                    .attr("class", CLASS.axisY)
+                    .attr("clip-path", clipPathForYAxis)
+                    .attr("transform", translate.y)
+                  .append("text")
+                    .attr("class", CLASS.axisYLabel)
+                    .attr("transform", __axis_rotated ? "" : "rotate(-90)")
+                    .style("text-anchor", textAnchorForYAxisLabel);
+            }
+
+            if (__axis_y2_show) {
+                main.append("g")
+                    .attr("class", CLASS.axisY2)
+                    // clip-path?
+                    .attr("transform", translate.y2)
+                  .append("text")
+                    .attr("class", CLASS.axisY2Label)
+                    .attr("transform", __axis_rotated ? "" : "rotate(-90)")
+                    .style("text-anchor", textAnchorForY2AxisLabel);
             }
 
             /*-- Context Region --*/
@@ -3050,11 +3062,9 @@
                 updateLegend(mapToIds(c3.data.targets), options, transitions);
             }
 
-            if (isCategorized) {
-                // ATTENTION: need to update domain with current domain when categoryAxis
-                if (targetsToShow.length === 0 || !withUpdateOrgXDomain || !withUpdateXDomain) {
-                    x.domain([0, xaxis.selectAll('.tick').size()]);
-                }
+            // MEMO: needed for grids calculation
+            if (isCategorized && targetsToShow.length === 0) {
+                x.domain([0, xaxis.selectAll('.tick').size()]);
             }
 
             if (targetsToShow.length) {
@@ -3110,8 +3120,6 @@
                 }
             }
 
-            tickOffset = xAxis.tickOffset();
-
             // rotate tick text if needed
             if (!__axis_rotated && __axis_x_tick_rotate) {
                 rotateTickText(xaxis, transitions.axisX, __axis_x_tick_rotate);
@@ -3136,6 +3144,7 @@
             main.select('line.' + CLASS.xgridFocus).style("visibility", "hidden");
             if (__grid_x_show) {
                 xgridData = generateGridData(__grid_x_type, x);
+                tickOffset = isCategorized ? xAxis.tickOffset() : 0;
                 xgridAttr = __axis_rotated ? {
                     'x1': 0,
                     'x2': width,
@@ -3242,11 +3251,11 @@
               .append('rect')
                 .style("fill-opacity", 0);
             mainRegion.selectAll('rect')
+              .transition().duration(duration)
                 .attr("x", regionX)
                 .attr("y", regionY)
                 .attr("width", regionWidth)
                 .attr("height", regionHeight)
-              .transition().duration(duration)
                 .style("fill-opacity", function (d) { return isValue(d.opacity) ? d.opacity : 0.1; });
             mainRegion.exit().transition().duration(duration)
                 .style("fill-opacity", 0)
@@ -3425,7 +3434,7 @@
             // subchart
             if (__subchart_show) {
                 // reflect main chart to extent on subchart if zoomed
-                if (d3.event !== null && d3.event.type === 'zoom') {
+                if (d3.event && d3.event.type === 'zoom') {
                     brush.extent(x.orgDomain()).update();
                 }
                 // update subchart elements if needed
@@ -3560,6 +3569,9 @@
             });
         }
         function redrawForZoom() {
+            if (filterTargetsToShow(c3.data.targets).length === 0) {
+                return;
+            }
             if (d3.event.sourceEvent.type === 'mousemove' && zoom.altDomain) {
                 x.domain(zoom.altDomain);
                 zoom.scale(x).updateScaleExtent();
@@ -4149,10 +4161,6 @@
         c3.toggle = function (targetId) {
             isTargetToShow(targetId) ? c3.hide(targetId) : c3.show(targetId);
         };
-		
-		c3.sd = function (targetId) {
-            isTargetToShow(targetId) ? c3.show(targetId) : c3.hide(targetId);
-        };
 
         c3.unzoom = function () {
             brush.clear().update();
@@ -4213,6 +4221,7 @@
                     isTargetId = __data_selection_grouped || !ids || ids.indexOf(id) >= 0,
                     isTargetIndex = !indices || indices.indexOf(i) >= 0,
                     isSelected = shape.classed(CLASS.SELECTED);
+                if (this.nodeName === 'path') { return; } // path selection not supported yet
                 if (isTargetId && isTargetIndex) {
                     if (__data_selection_isselectable(d) && !isSelected) {
                         toggle(true, shape.classed(CLASS.SELECTED, true), d, i);
@@ -4232,6 +4241,7 @@
                     isTargetId = __data_selection_grouped || !ids || ids.indexOf(id) >= 0,
                     isTargetIndex = !indices || indices.indexOf(i) >= 0,
                     isSelected = shape.classed(CLASS.SELECTED);
+                if (this.nodeName === 'path') { return; } // path selection not supported yet
                 if (isTargetId && isTargetIndex) {
                     if (__data_selection_isselectable(d)) {
                         if (isSelected) {
