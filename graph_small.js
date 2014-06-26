@@ -6,26 +6,24 @@
 		
 		//Effect when click menu on navigator bar 
 		$(".slide-one").click(function () {			
-			$("#myCarousel").carousel(0);
-			makeChart1();
-			makeChart2();			
+			$("#myCarousel").carousel(0);			
 		});
 		$(".slide-two").click(function () {			
 			$("#myCarousel").carousel(1);
-			makeChart5();
 		});
 		$(".slide-three").click(function () {			
 			$("#myCarousel").carousel(2);	
-			makeChart6();
 		});
 		
-		//Effect with carousel left & right control
+		//Effect with carousel left - right control & menu on navigator bar
 		$('#myCarousel').on('slide.bs.carousel', function () {	//slide - Redraw all function below before move to prev/next page
 			$("#myCarousel").carousel('pause'); //Stop cycle of carousel when slide.bs.carousel was started
+			pre_load();
 			makeChart1();
 			makeChart2();
 			makeChart5();
-			makeChart6();			
+			makeChart6();
+			//show4();
 		});
 	});	
 // Carousel Master Control -End
@@ -409,7 +407,7 @@
 			chart4.show([c1, c2, c3], {
 				withLegend: true
 			});			
-		});
+		});	
 	});
 	
 	function makeChart6(){
@@ -457,14 +455,10 @@
 				}
 			}
 		});
-	
-		setTimeout(function () {
-			chart4.show(['Afghanistan', 'Armenia', 'Australia'], {withLegend: true});
-			chart4.data.colors({
-				Afghanistan: d3.rgb('#2ca02c'),
-				Armenia: d3.rgb('#ff7f0e'),
-				Australia: d3.rgb('#1f77b4')
-			});
-		}, 1000);
 	}
 // End 3rd Graph
+
+function pre_load() {
+	$("#country1, #country2").load("dataset/drop_down/country_w_val.html");
+	$("#n1,#n2,#n3").load("dataset/drop_down/country.html");
+}
